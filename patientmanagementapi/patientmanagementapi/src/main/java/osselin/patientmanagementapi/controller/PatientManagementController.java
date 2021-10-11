@@ -1,6 +1,8 @@
 package osselin.patientmanagementapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import osselin.patientmanagementapi.model.Patient;
 import osselin.patientmanagementapi.service.PatientManagementService;
@@ -14,36 +16,54 @@ public class PatientManagementController {
     PatientManagementService patientService;
 
     @PostMapping("/patient/add")
-    public void addAPatientToTheDatabase(@RequestBody Patient newPatient){
+    public ResponseEntity<Patient> addAPatientToTheDatabase(@RequestBody Patient newPatient){
 
-        Boolean result = patientService.addANewPatientToTheDatabase(newPatient);
 
+
+        Patient result = patientService.addANewPatientToTheDatabase(newPatient);
+
+        if(result != null){
+
+            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+
+        }else{
+
+            return new ResponseEntity("You couldn't add the Patient to the Db", HttpStatus.BAD_REQUEST);
+        }
 
     }
 
     @PostMapping("/patient/update")
-    public void updateAPatientInTheDatabase(@RequestParam("id") Integer patientId, @RequestBody Patient newAttributesForGivenPatient){
+    public ResponseEntity<Patient> updateAPatientInTheDatabase(@RequestParam("id") Integer patientId, @RequestBody Patient newAttributesForGivenPatient){
 
-        Boolean result = patientService.updateAGivenPatient(patientId, newAttributesForGivenPatient);
+        Patient result = patientService.updateAGivenPatient(patientId, newAttributesForGivenPatient);
 
-        if(result){
-            System.out.println("Good LOL");
+        if(result != null){
+
+            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+
         }else{
-            System.out.println("BAD lol");
+
+            return new ResponseEntity("You couldn't add the Patient to the Db", HttpStatus.BAD_REQUEST);
         }
 
     }
 
     @PostMapping("/patient/delete")
-    public void deleteAPatientInTheDatabase(@RequestParam("id") Integer patientId){
+    public ResponseEntity<String> deleteAPatientInTheDatabase(@RequestParam("id") Integer patientId){
 
         Boolean result = patientService.deleteAGivenPatient(patientId);
 
         if(result){
-            System.out.println("Good LOL");
+
+            return new ResponseEntity<String>("The user given has been deleted", HttpStatus.OK);
+
         }else{
-            System.out.println("BAD lol");
+
+            return new ResponseEntity<String>("The user couldn't be deleted", HttpStatus.BAD_REQUEST);
+
         }
+
     }
 
     @GetMapping("/patient")

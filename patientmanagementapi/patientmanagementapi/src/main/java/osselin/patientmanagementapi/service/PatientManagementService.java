@@ -13,30 +13,29 @@ public class PatientManagementService {
     @Autowired
     PatientManagementRepository patientRepo;
 
-    public boolean addANewPatientToTheDatabase(Patient newPatient) {
+    public Patient addANewPatientToTheDatabase(Patient newPatient) {
 
         if(patientRepo.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()) == null ){
 
-            patientRepo.save(newPatient);
-            return true;
+            Patient result = patientRepo.save(newPatient);
+            return result;
 
         }
 
-        return false;
+        return null;
 
     }
 
-    public Boolean updateAGivenPatient(Integer patientId, Patient newAttributesForGivenPatient) {
+    public Patient updateAGivenPatient(Integer patientId, Patient newAttributesForGivenPatient) {
 
         if(patientRepo.findById(patientId).isPresent()){
 
             newAttributesForGivenPatient.setId(patientId);
-            patientRepo.delete(patientRepo.findById(patientId).get());
-            patientRepo.save(newAttributesForGivenPatient);
-            return true;
+            Patient result = patientRepo.save(newAttributesForGivenPatient);
+            return result;
         }
 
-        return false;
+        return null;
     }
 
     public Boolean deleteAGivenPatient(Integer patientId) {

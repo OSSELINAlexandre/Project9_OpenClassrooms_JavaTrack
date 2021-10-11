@@ -43,8 +43,8 @@ class PatientmanagementapiApplicationTests {
 
 		System.out.println(patientRepo.findByFirstNameAndLastName(testingPatientThree.getFirstName(), testingPatientThree.getLastName()));
 
-		Boolean result = patientService.addANewPatientToTheDatabase(testingPatientThree);
-		assertTrue(result);
+		Patient result = patientService.addANewPatientToTheDatabase(testingPatientThree);
+		assertTrue(result != null);
 		patientRepo.delete(testingPatientThree);
 
 	}
@@ -53,9 +53,9 @@ class PatientmanagementapiApplicationTests {
 	void addingAPatientAlreadyExistingShouldReturnFalse() {
 
 		patientService.addANewPatientToTheDatabase(testingPatient);
-		Boolean result = patientService.addANewPatientToTheDatabase(testingPatient);
+		Patient result = patientService.addANewPatientToTheDatabase(testingPatient);
 
-		assertFalse(result);
+		assertTrue( result == null);
 		patientRepo.delete(testingPatient);
 
 	}
@@ -67,11 +67,11 @@ class PatientmanagementapiApplicationTests {
 		Patient result = patientRepo.findByFirstNameAndLastName(testingPatient.getFirstName(), testingPatient.getLastName());
 		Date testDate = new Date(2020, Calendar.DECEMBER, 25);
 		Patient testingPatientTwo = new Patient("Peterson", "Friederich", testDate, 'F', "32 rue du Moulin", "0160693539");
-		boolean finalResult = patientService.updateAGivenPatient(result.getId(), testingPatientTwo);
-		assertTrue(finalResult);
+		Patient finalResult = patientService.updateAGivenPatient(result.getId(), testingPatientTwo);
+		assertTrue(finalResult != null);
 
 		patientRepo.delete(testingPatient);
-		patientRepo.delete(testingPatientTwo);
+		patientRepo.delete(finalResult);
 
 	}
 
@@ -81,8 +81,8 @@ class PatientmanagementapiApplicationTests {
 		Date testDate = new Date(2020, Calendar.DECEMBER, 25);
 
 		testingPatient = new Patient(Integer.MAX_VALUE, "Peterson", "Friederich", testDate, 'F', "32 rue du Moulin", "0160693539");
-		boolean result = patientService.updateAGivenPatient(Integer.MAX_VALUE, testingPatient);
-		assertFalse(result);
+		Patient result = patientService.updateAGivenPatient(Integer.MAX_VALUE, testingPatient);
+		assertTrue(result == null );
 
 		patientRepo.delete(testingPatient);
 	}
