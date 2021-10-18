@@ -1,4 +1,4 @@
-package osselin.doctorinterface;
+package osselin.diagnosisapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class DoctorinterfaceApplication {
+public class DiagnosisapiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DoctorinterfaceApplication.class, args);
+		SpringApplication.run(DiagnosisapiApplication.class, args);
 	}
 
 }

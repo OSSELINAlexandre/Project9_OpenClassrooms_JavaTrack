@@ -1,0 +1,19 @@
+.nav{
+
+    font-size : 16px;
+}
+
+.writingFrame{
+
+	min-height : 80vh;
+}
+
+.LowerWritingFrame{
+
+	min-height : 73vh;
+}
+
+textarea {
+   font-size: 20pt;
+
+}

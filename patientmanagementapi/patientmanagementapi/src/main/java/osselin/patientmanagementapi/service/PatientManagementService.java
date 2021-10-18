@@ -6,6 +6,7 @@ import osselin.patientmanagementapi.model.Patient;
 import osselin.patientmanagementapi.repository.PatientManagementRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientManagementService {
@@ -15,8 +16,11 @@ public class PatientManagementService {
 
     public Patient addANewPatientToTheDatabase(Patient newPatient) {
 
-        if(patientRepo.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()) == null ){
 
+        if(patientRepo.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()).isEmpty() ){
+
+
+            System.out.println("Is this guy been printed ??? I don't know man ");
             Patient result = patientRepo.save(newPatient);
             return result;
 
@@ -32,6 +36,8 @@ public class PatientManagementService {
 
             newAttributesForGivenPatient.setId(patientId);
             Patient result = patientRepo.save(newAttributesForGivenPatient);
+
+
             return result;
         }
 
@@ -61,5 +67,15 @@ public class PatientManagementService {
 
         List<Patient> result = (List<Patient> ) patientRepo.findAll();
         return result;
+    }
+
+    public Optional<Patient> getASpecificPatient(Integer theId) {
+
+        return patientRepo.findById(theId);
+    }
+
+    public Optional<Patient> getASpecificPatientBasedOnIdentity(String firstName, String familyName) {
+
+        return patientRepo.findByFirstNameAndLastName(firstName, familyName);
     }
 }

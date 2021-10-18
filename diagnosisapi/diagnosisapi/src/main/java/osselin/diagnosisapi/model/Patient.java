@@ -1,38 +1,23 @@
-package osselin.doctorinterface.model;
-
+package osselin.diagnosisapi.model;
 
 import java.sql.Date;
-
 
 public class Patient {
 
     private int id;
-
-
     private String firstName;
-
-
     private String lastName;
-
-    //@Pattern(regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
-
-
-
     private Date dateOfBirth;
-
-/*    @Pattern(regexp = "[MF]")
-    @NotBlank(message ="You need to add a gender, please M or F")*/
     private Character gender;
-
     private String address;
-
     private String phoneNumber;
+
+
 
     public Patient() {
     }
 
-    public Patient(int id, String firstName, String lastName, Date dateOfBirth, Character gender, String address, String phoneNumber) {
-        this.id = id;
+    public Patient(String firstName, String lastName, Date dateOfBirth, Character gender, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -95,18 +80,5 @@ public class Patient {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", gender=" + gender +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
     }
 }

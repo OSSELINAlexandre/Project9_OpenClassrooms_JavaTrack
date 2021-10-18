@@ -64,7 +64,7 @@ class PatientmanagementapiApplicationTests {
 	void updatingAnExistingPatientShouldReturnTrue(){
 
 		patientService.addANewPatientToTheDatabase(testingPatient);
-		Patient result = patientRepo.findByFirstNameAndLastName(testingPatient.getFirstName(), testingPatient.getLastName());
+		Patient result = patientRepo.findByFirstNameAndLastName(testingPatient.getFirstName(), testingPatient.getLastName()).get();
 		Date testDate = new Date(2020, Calendar.DECEMBER, 25);
 		Patient testingPatientTwo = new Patient("Peterson", "Friederich", testDate, 'F', "32 rue du Moulin", "0160693539");
 		Patient finalResult = patientService.updateAGivenPatient(result.getId(), testingPatientTwo);
@@ -91,7 +91,7 @@ class PatientmanagementapiApplicationTests {
 	void deletingAnExistingPatientShouldReturnTrue(){
 
 		patientService.addANewPatientToTheDatabase(testingPatient);
-		Patient result = patientRepo.findByFirstNameAndLastName(testingPatient.getFirstName(), testingPatient.getLastName());
+		Patient result = patientRepo.findByFirstNameAndLastName(testingPatient.getFirstName(), testingPatient.getLastName()).get();
 		Boolean finalResult = patientService.deleteAGivenPatient(result.getId());
 		assertTrue(finalResult);
 

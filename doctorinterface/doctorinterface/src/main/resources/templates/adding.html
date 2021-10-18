@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Spring Boot </title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/jpg/logoAbernathy.PNG" alt="" width="30" height="24" class="d-inline-block align-text-top"/>
+                Clinique Abernathy
+            </a>
+            <form class="d-flex ">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+    </nav>
+
+<section >
+    <div class="container text-center shadow mt-3 bg-white">
+        <h1 class="mt-2">Create a new Patient</h1>
+        <div class="row" >
+            <div class="col">
+                <form th:action="@{/registerNewPatient}" method="POST"  th:object="${patient}">
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">First Name</h2>
+                    <input class=" w-75" th:field="*{firstName}" required/>
+                </div>
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">Last Name</h2>
+                    <input class=" w-75" th:field="*{lastName}" required />
+                </div>
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">Date of Birth</h2>
+                    <input  required type="date" class=" w-75" th:field="*{dateOfBirth}"/>
+                </div>
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">Gender</h2>
+                    <div class="w-75 d-flex justify-content-around">
+                        <div>
+                        <label>Male</label>
+                        <input class="mr-3 form-check-input" th:value="M" type="radio" name="flexRadioDefault"  th:field="*{gender}" required>
+                        </div>
+                        <div>
+                        <label>Female</label>
+                        <input class="mr-3 form-check-input" th:value="F" type="radio" name="flexRadioDefault"  th:field="*{gender}" required>
+                        </div>
+                </div>
+                </div>
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">Address</h2>
+                    <input class=" w-75" th:field="*{address}"/>
+                </div>
+                <div class="d-flex flex-row mt-4">
+                    <h2 class="w-25">Phone Number</h2>
+                    <input class=" w-75" th:field="*{phoneNumber}"/>
+                </div>
+                <div class="mt-4 mb-4">
+                    <button type="submit" class="btn btn-success"><h3>Add the Patient</h3></button>
+                    <a th:href="@{/}" class="btn btn-danger"><h3>Cancel</h3></a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

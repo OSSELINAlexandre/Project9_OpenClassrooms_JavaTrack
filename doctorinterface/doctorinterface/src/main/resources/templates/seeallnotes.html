@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Spring Boot </title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-light bg-white">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/jpg/logoAbernathy.PNG" alt="" width="30" height="24" class="d-inline-block align-text-top"/>
+            Clinique Abernathy
+        </a>
+
+
+        <div class="d-flex w-50 justify-content-evenly" th:object="${givenPatient}">
+        <a th:href="@{/}" type="submit" class="btn btn-primary pr-2">Return to List</a>
+         <a th:href="@{/addNewNote/{id}(id=${givenPatient.id})}" type="submit" class="btn btn-success pr-2">Add a new Note</a>
+            <form class="d-flex ">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+<section>
+
+    <div class="container text-center bg-white mt-3 shadow-sm" th:object="${givenPatient}">
+        <div class="d-flex flex-row justify-content-evenly">
+        <h1 th:text="${givenPatient.firstName}"></h1>
+        <h1 th:text="${givenPatient.lastName}"></h1>
+        </div>
+        <div class="d-flex flex-row justify-content-evenly">
+        <h5>Address : </h5>
+        <h5 th:text="${givenPatient.address}"></h5>
+        <h5 >Phone Number : +3361528075</h5>
+        <h5>BirthDate : </h5>
+        <h5 th:text="${givenPatient.dateOfBirth}"></h5>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="note : ${AllNoteFromUser}">
+                        <td th:text="${note.id}"></td>
+                        <td>
+                            <a  th:href="@{/seeSpecificNote/{id}/{idPatient}(id=${note.id},idPatient=${givenPatient.id})}" class="btn btn-success">See note</a>
+                            <a  th:href="@{/modifySpecificNote/{id}/{idPatient}(id=${note.id},idPatient=${givenPatient.id})}" class="btn btn-primary">Modify</a>
+                            <a  th:href="@{/deleteANote/{id}(id=${note.id})}"class="btn btn-danger" >Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    
+
+</section>
+
+<script src="bootstrap.min.js"></script>
+<script src="bootstrap.bundle.js"></script>
+
+</body>
+</html>
