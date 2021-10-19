@@ -16,7 +16,7 @@ public class PatientNoteController {
     @GetMapping("/getNote")
     public List<PatientNote> getAllNotes(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName){
 
-        System.out.println("HEYYYY");
+
         return patientNoteService.getAllNotesFromPatient(firstName, lastName);
     }
 
@@ -28,7 +28,6 @@ public class PatientNoteController {
     @PostMapping("/saveANewNote")
     public Boolean saveANewNoteInTheDb(@RequestBody PatientNote pn){
 
-        System.out.println(pn.toString());
 
         return patientNoteService.saveANewNoteToTheDataBase(pn);
     }
@@ -38,4 +37,6 @@ public class PatientNoteController {
 
         return patientNoteService.deleteAGivenNote(id);
     }
+
+
 }

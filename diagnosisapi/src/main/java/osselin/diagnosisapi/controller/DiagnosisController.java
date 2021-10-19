@@ -24,7 +24,7 @@ public class DiagnosisController {
 
     //TODO attention car plusieurs membres de la famille peuvent se faire consulter ! :)
     @PostMapping("/assess/familyName")
-    public String assesBasedOnId(@RequestBody PatFamilyDto patFamilyDto){
+    public String assesBasedOnFamilyName(@RequestBody PatFamilyDto patFamilyDto){
 
         String result = diagnosisService.assessThePatientBasedOnFamilyName(patFamilyDto.getFirstName(), patFamilyDto.getFamilyName());
 

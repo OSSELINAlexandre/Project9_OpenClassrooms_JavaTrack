@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class DiagnosisapiApplicationTests {
+class DiagnosisapiApplicationIntegrationsTests {
 
 	@Autowired
 	DiagnosisService diagnosisService;
@@ -22,22 +22,25 @@ class DiagnosisapiApplicationTests {
 	@Test
 	public void test_calculationAlgortihm_ForMale(){
 
+		Date dating26Yo = new Date(815616000000L);
+		Date dating66Yo = new Date(-459302400000L);
+
 
 		//Minus 30 YO : 2 symptoms == None
-		Patient theTestBPatient = new Patient("Alexandre" , "OSSELIN", new Date(1995, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestBPatient = new Patient("Alexandre" , "OSSELIN", dating26Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pb = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine");
 		List<PatientNote> testListB = new ArrayList<>();
 		testListB.add(pb);
 
 		//Minus 30 YO : 4 symptoms == In Danger
-		Patient theTestCPatient = new Patient("Alexandre" , "OSSELIN", new Date(1995, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestCPatient = new Patient("Alexandre" , "OSSELIN", dating26Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pc = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps,");
 		List<PatientNote> testListC = new ArrayList<>();
 		testListC.add(pc);
 
 
 		//Minus 30 YO : 9 symptoms == Early Onset
-		Patient theTestPatient = new Patient("Alexandre" , "OSSELIN", new Date(1995, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestPatient = new Patient("Alexandre" , "OSSELIN", dating26Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pa = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
 		List<PatientNote> testList = new ArrayList<>();
 		testList.add(pa);
@@ -51,27 +54,27 @@ class DiagnosisapiApplicationTests {
 		*/
 
 		//More than 30 YO : 1 symptoms == None
-		Patient theTestDPatient = new Patient("Alexandre" , "OSSELIN", new Date(1985, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestDPatient = new Patient("Alexandre" , "OSSELIN", dating66Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pd = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine");
 		List<PatientNote> testListD = new ArrayList<>();
 		testListD.add(pd);
 
 		//More than 30 YO : 3 symptoms == Borderline
-		Patient theTestEPatient = new Patient("Alexandre" , "OSSELIN", new Date(1985, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestEPatient = new Patient("Alexandre" , "OSSELIN", dating66Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pe = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol");
 		List<PatientNote> testListE = new ArrayList<>();
 		testListE.add(pe);
 
 
 		//More than 30 YO : 7 symptoms == In Danger
-		Patient theTestFPatient = new Patient("Alexandre" , "OSSELIN", new Date(1985, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestFPatient = new Patient("Alexandre" , "OSSELIN", dating66Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pf = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige");
 		List<PatientNote> testListF = new ArrayList<>();
 		testListF.add(pf);
 
 
 		//More than 30 YO : 9 symptoms == Early Onset
-		Patient theTestGPatient = new Patient("Alexandre" , "OSSELIN", new Date(1985, 06, 11), 'M', "32 rue du moulin" , "0661528075");
+		Patient theTestGPatient = new Patient("Alexandre" , "OSSELIN", dating66Yo, 'M', "32 rue du moulin" , "0661528075");
 		PatientNote pg = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
 		List<PatientNote> testListG = new ArrayList<>();
 		testListG.add(pg);
@@ -100,21 +103,25 @@ class DiagnosisapiApplicationTests {
 	public void test_calculationAlgortihm_ForFemale(){
 
 
+		Date dating26Yo = new Date(815616000000L);
+		Date dating66Yo = new Date(-459302400000L);
+
+
 		//Minus 30 YO : 2 symptoms == None
-		Patient theTestBPatient = new Patient("Alexandra" , "OSSELIN", new Date(1995, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestBPatient = new Patient("Alexandra" , "OSSELIN", dating26Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pb = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine, Microalbumine");
 		List<PatientNote> testListB = new ArrayList<>();
 		testListB.add(pb);
 
 		//Minus 30 YO : 4 symptoms == In Danger
-		Patient theTestCPatient = new Patient("Alexandra" , "OSSELIN", new Date(1995, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestCPatient = new Patient("Alexandra" , "OSSELIN", dating26Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pc = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, ");
 		List<PatientNote> testListC = new ArrayList<>();
 		testListC.add(pc);
 
 
 		//Minus 30 YO : 9 symptoms == Early Onset
-		Patient theTestPatient = new Patient("Alexandra" , "OSSELIN", new Date(1995, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestPatient = new Patient("Alexandra" , "OSSELIN", dating26Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pa = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
 		List<PatientNote> testList = new ArrayList<>();
 		testList.add(pa);
@@ -128,27 +135,27 @@ class DiagnosisapiApplicationTests {
 		 */
 
 		//More than 30 YO : 1 symptoms == None
-		Patient theTestDPatient = new Patient("Alexandra" , "OSSELIN", new Date(1985, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestDPatient = new Patient("Alexandra" , "OSSELIN", dating66Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pd = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine");
 		List<PatientNote> testListD = new ArrayList<>();
 		testListD.add(pd);
 
 		//More than 30 YO : 3 symptoms == Borderline
-		Patient theTestEPatient = new Patient("Alexandra" , "OSSELIN", new Date(1985, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestEPatient = new Patient("Alexandra" , "OSSELIN", dating66Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pe = new PatientNote("77", "Alexandre" , "OSSELIN" , "Microalbumine, Taille, Cholestérol");
 		List<PatientNote> testListE = new ArrayList<>();
 		testListE.add(pe);
 
 
 		//More than 30 YO : 7 symptoms == In Danger
-		Patient theTestFPatient = new Patient("Alexandra" , "OSSELIN", new Date(1985, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestFPatient = new Patient("Alexandra" , "OSSELIN", dating66Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pf = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige");
 		List<PatientNote> testListF = new ArrayList<>();
 		testListF.add(pf);
 
 
 		//More than 30 YO : 9 symptoms == Early Onset
-		Patient theTestGPatient = new Patient("Alexandra" , "OSSELIN", new Date(1985, 06, 11), 'F', "32 rue du moulin" , "0661528075");
+		Patient theTestGPatient = new Patient("Alexandra" , "OSSELIN", dating66Yo, 'F', "32 rue du moulin" , "0661528075");
 		PatientNote pg = new PatientNote("77", "Alexandra" , "OSSELIN" , "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
 		List<PatientNote> testListG = new ArrayList<>();
 		testListG.add(pg);

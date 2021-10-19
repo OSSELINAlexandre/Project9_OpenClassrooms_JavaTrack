@@ -45,7 +45,7 @@ public class PatientManagementController {
 
         }else{
 
-            return new ResponseEntity("You couldn't add the Patient to the Db", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("You couldn't update the Patient to the Db", HttpStatus.BAD_REQUEST);
         }
 
     }

@@ -6,6 +6,7 @@ import osselin.patientnotes.model.PatientNote;
 import osselin.patientnotes.repository.PatientNotesRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PatientNoteService {
@@ -17,11 +18,8 @@ public class PatientNoteService {
     public List<PatientNote> getAllNotesFromPatient(String firstName, String lastName) {
 
 
-        System.out.println("IN SERVICE DO WE GET HERE ?" + firstName + "||||| " + lastName);
 
         List<PatientNote> result = patientNotesRepo.findByLastNameAndFirstName(lastName, firstName);
-
-        System.out.println("IN SERVICE DO WE GET HERE ? SIZE : " + result.size());
 
 
         return result;
@@ -29,7 +27,13 @@ public class PatientNoteService {
 
     public PatientNote getSpecificNoteFromPatient(String id) {
 
-        return patientNotesRepo.findById(id).get();
+        try {
+            PatientNote result = patientNotesRepo.findById(id).get();
+            return result;
+        }catch(NoSuchElementException ne){
+            return null;
+        }
+
     }
 
     //TODO make that function return a true or false statement in order to know where we are oing.
@@ -45,8 +49,18 @@ public class PatientNoteService {
             PatientNote pn = patientNotesRepo.findById(id).get();
             patientNotesRepo.delete(pn);
             return true;
-        }catch(NullPointerException E ){
+        }catch(NullPointerException E){
+            return false;
+        }catch(NoSuchElementException LE){
             return false;
         }
+    }
+
+    public PatientNotesRepository getPatientNotesRepo() {
+        return patientNotesRepo;
+    }
+
+    public void setPatientNotesRepo(PatientNotesRepository patientNotesRepo) {
+        this.patientNotesRepo = patientNotesRepo;
     }
 }

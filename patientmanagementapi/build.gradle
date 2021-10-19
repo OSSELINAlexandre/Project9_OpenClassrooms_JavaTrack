@@ -32,21 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-jacocoTestReport {
-	dependsOn test // tests are required to run before generating the report
-}
 
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				counter = 'LINE'
-				value = 'COVEREDRATIO'
-				minimum = 0.5
-			}
-		}
-	}
-}
 
 
 

@@ -20,5 +20,6 @@ public class PatientnotesApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 
+
 	}
 }

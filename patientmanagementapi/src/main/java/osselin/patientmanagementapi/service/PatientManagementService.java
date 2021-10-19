@@ -76,6 +76,8 @@ public class PatientManagementService {
 
     public Optional<Patient> getASpecificPatientBasedOnIdentity(String firstName, String familyName) {
 
+
+        System.out.println(patientRepo.findByFirstNameAndLastName(firstName, familyName).get().getDateOfBirth().getTime());
         return patientRepo.findByFirstNameAndLastName(firstName, familyName);
     }
 }
