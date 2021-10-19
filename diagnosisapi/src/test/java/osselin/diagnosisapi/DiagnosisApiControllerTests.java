@@ -63,7 +63,7 @@ public class DiagnosisApiControllerTests {
     }
 
     @Test
-    public void test_assesBasedOnId() throws Exception {
+    public void Test_assesBasedOnId() throws Exception {
 
         PatIdDto idFromUser = new PatIdDto();
         Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Leonard", "DaVinci").get();
@@ -77,7 +77,7 @@ public class DiagnosisApiControllerTests {
     }
 
     @Test
-    public void test_assesBasedOnFamilyName() throws Exception {
+    public void Test_assesBasedOnFamilyName() throws Exception {
 
         PatFamilyDto theId = new PatFamilyDto();
         theId.setFamilyName("DaVinci");

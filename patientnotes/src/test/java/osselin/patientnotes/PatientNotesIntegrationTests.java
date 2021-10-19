@@ -47,7 +47,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_getNote_FromExistingPatientNote_ShouldReturnTheObservation() throws Exception {
+    public void Test_getNote_FromExistingPatientNote_ShouldReturnTheObservation() throws Exception {
 
         mvcResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         System.out.println(mvcResult.getResponse().getContentAsString());
@@ -61,7 +61,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_getNote_FromNotExistingPatientNote_ShouldNotReturnTheObservation() throws Exception {
+    public void Test_getNote_FromNotExistingPatientNote_ShouldNotReturnTheObservation() throws Exception {
 
 
         MvcResult toBeDeleted = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
@@ -78,7 +78,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_GetAGivenNote() throws Exception {
+    public void Test_GetAGivenNote() throws Exception {
 
         MvcResult deletedResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         List<PatientNote> pa = patientRepo.findByLastNameAndFirstName("DaVinci" , "Leonard");
@@ -94,7 +94,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_GetAGivenNote_ShouldReturnEmptyWhenDoesNotExist() throws Exception {
+    public void Test_GetAGivenNote_ShouldReturnEmptyWhenDoesNotExist() throws Exception {
 
         MvcResult deletedResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
 
@@ -109,7 +109,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_SaveANewNote() throws Exception {
+    public void Test_SaveANewNote() throws Exception {
 
         PatientNote testPatientNoteC = new PatientNote(String.valueOf(Integer.MAX_VALUE), "Leonard", "DaVinci", "A genius that was terrible");
         mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/saveANewNote").content(asJsonString(testPatientNoteC))
@@ -126,7 +126,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_DeleteAGivenNote() throws Exception {
+    public void Test_DeleteAGivenNote() throws Exception {
 
         List<PatientNote> pa = patientRepo.findByLastNameAndFirstName("DaVinci" , "Leonard");
         PatientNote noteA = pa.get(0);
@@ -143,7 +143,7 @@ public class PatientNotesIntegrationTests {
     }
 
     @Test
-    public void test_DeleteAGivenNote_ShouldReturnFalseIfDoesNotExist() throws Exception {
+    public void Test_DeleteAGivenNote_ShouldReturnFalseIfDoesNotExist() throws Exception {
 
 
         mvcResult = mockMvc.perform(get("/deleteANote?id=" + (-5))).andReturn();

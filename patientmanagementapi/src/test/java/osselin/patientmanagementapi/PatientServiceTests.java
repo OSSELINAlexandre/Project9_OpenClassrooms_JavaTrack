@@ -49,7 +49,7 @@ class PatientServiceTests {
 
 
 	@Test
-	void addingAPatientShouldReturnTrue() throws Exception {
+	void Test_addingAPatientShouldReturnTrue() throws Exception {
 
 		Date dating26Yo = new Date(815616000000L);
 		Patient testingPatientThree = new Patient("Jean", "Valjean", dating26Yo, 'M', "Rue du petit picpus", "0160693539");
@@ -67,7 +67,7 @@ class PatientServiceTests {
 	}
 
 	@Test
-	void addingAPatientAlreadyExistingShouldReturnFalse() throws Exception {
+	void Test_addingAPatientAlreadyExistingShouldReturnFalse() throws Exception {
 
 		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -86,7 +86,7 @@ class PatientServiceTests {
 	}
 
 	@Test
-	void updatingAnExistingPatientShouldReturnTrue() throws Exception {
+	void Test_updatingAnExistingPatientShouldReturnTrue() throws Exception {
 
 		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -107,7 +107,7 @@ class PatientServiceTests {
 	}
 
 	@Test
-	void updatingANoneExistingPatientShouldReturnFalse() throws Exception {
+	void Test_updatingANoneExistingPatientShouldReturnFalse() throws Exception {
 
 		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/update?id=" + Integer.MAX_VALUE).content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -118,7 +118,7 @@ class PatientServiceTests {
 	}
 
 	@Test
-	void deletingAnExistingPatientShouldReturnTrue() throws Exception {
+	void Test_deletingAnExistingPatientShouldReturnTrue() throws Exception {
 
 		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -132,7 +132,7 @@ class PatientServiceTests {
 	}
 
 	@Test
-	void deletingAnNoneExistingPatientShouldReturnFalse() throws Exception {
+	void Test_deletingAnNoneExistingPatientShouldReturnFalse() throws Exception {
 
 		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete?id=" + Integer.MAX_VALUE).content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();

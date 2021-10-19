@@ -32,7 +32,7 @@ class PatientNotesUnitTests {
 	}
 
 	@Test
-	public void test_getAllNotesFromPatient(){
+	public void Test_getAllNotesFromPatient(){
 
 		when(patientRepo.findByLastNameAndFirstName("OSSELIN", "Alexandre")).thenReturn(new ArrayList<PatientNote>());
 
@@ -42,7 +42,7 @@ class PatientNotesUnitTests {
 	}
 
 	@Test
-	public void test_getSpecificNoteFromPatient(){
+	public void Test_getSpecificNoteFromPatient(){
 
 		when(patientRepo.findById("77")).thenReturn(Optional.of(new PatientNote()));
 
@@ -53,7 +53,7 @@ class PatientNotesUnitTests {
 	}
 
 	@Test
-	public void test_saveANewNoteToTheDataBase(){
+	public void Test_saveANewNoteToTheDataBase(){
 
 		PatientNote testing = new PatientNote();
 		when(patientRepo.save(testing)).thenReturn(testing);
@@ -64,14 +64,14 @@ class PatientNotesUnitTests {
 	}
 
 	@Test
-	public void test_deleteAGivenNote_ShouldReturnFalse(){
+	public void Test_deleteAGivenNote_ShouldReturnFalse(){
 
 		assertFalse(patientService.deleteAGivenNote("77"));
 
 	}
 
 	@Test
-	public void test_saveANewNote(){
+	public void Test_saveANewNote(){
 
 		PatientNote testItem = new PatientNote();
 		when(patientRepo.save(testItem)).thenReturn(testItem);
@@ -86,7 +86,7 @@ class PatientNotesUnitTests {
 	We therefore need to test the Model.
 	 */
 	@Test
-	public void testingTheModel(){
+	public void Test_testingTheModel(){
 
 		PatientNote testingItem = new PatientNote();
 		PatientNote testingItemTwo = new PatientNote("87", "Alex" , "OSS" , "Mating");

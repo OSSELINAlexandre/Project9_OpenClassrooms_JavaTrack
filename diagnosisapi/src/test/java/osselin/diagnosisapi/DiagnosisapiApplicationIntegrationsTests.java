@@ -20,7 +20,7 @@ class DiagnosisapiApplicationIntegrationsTests {
 	DiagnosisService diagnosisService;
 
 	@Test
-	public void test_calculationAlgortihm_ForMale(){
+	public void Test_calculationAlgortihm_ForMale(){
 
 		Date dating26Yo = new Date(815616000000L);
 		Date dating66Yo = new Date(-459302400000L);
@@ -100,7 +100,7 @@ class DiagnosisapiApplicationIntegrationsTests {
 	}
 
 	@Test
-	public void test_calculationAlgortihm_ForFemale(){
+	public void Test_calculationAlgortihm_ForFemale(){
 
 
 		Date dating26Yo = new Date(815616000000L);
