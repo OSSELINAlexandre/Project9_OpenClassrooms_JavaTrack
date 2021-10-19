@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class DoctorinterfaceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(DoctorinterfaceApplication.class, args);
 	}
 
