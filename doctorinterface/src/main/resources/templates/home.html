@@ -63,7 +63,7 @@
           <td th:text="${patient.address}"></td>
           <td th:text="${patient.phoneNumber}"></td>
           <td>
-                    <a  th:href="@{/seeNotesForUser/{id}/{firstName}/{lastName}(id=${patient.id},firstName=${patient.firstName}, lastName=${patient.lastName})}" class="btn btn-success">See notes</a>
+                    <a  th:href="@{/seeNotesForUser/{id}(id=${patient.id})}" class="btn btn-success">See notes</a>
                     <a  th:href="@{/modifyPatient/{id}(id=${patient.id})}" class="btn btn-primary">Modify</a>
                     <a  th:href="@{/deletePatient/{id}(id=${patient.id})}" class="btn btn-danger" >Delete</a>
 

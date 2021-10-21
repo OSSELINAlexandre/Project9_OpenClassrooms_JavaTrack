@@ -9,6 +9,6 @@ public interface PatientNotesRepository extends MongoRepository<PatientNote, Str
 
     List<PatientNote> findByLastNameAndFirstName(String lastName, String firstName);
 
-    PatientNote findBySqlId(String id);
+    List<PatientNote> findBySqlId(String id);
 
 }

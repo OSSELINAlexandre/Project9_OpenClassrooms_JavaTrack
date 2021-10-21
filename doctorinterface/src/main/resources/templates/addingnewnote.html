@@ -21,7 +21,7 @@
       </div>
     </div>
 </nav>
-<form th:action="@{/saveSpecificNote/{id}/{firstName}/{lastName}(id=${patientId},firstName=${patientFirstName},lastName=${patientLastName})}" method="POST" th:object="${addingNewNote}" >
+<form th:action="@{/saveSpecificNote/{id}(id=${patientId})}" method="POST" th:object="${addingNewNote}" >
 <section class="writingFrame">
 
     <div class="container text-center bg-white mt-3 shadow-sm writingFrame">
@@ -46,8 +46,8 @@
 </div>
 </form>
 
-<script src="bootstrap.min.js"></script>
-<script src="bootstrap.bundle.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.bundle.js"></script>
 
 </body>
 </html>

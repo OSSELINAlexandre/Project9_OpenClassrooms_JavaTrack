@@ -8,49 +8,60 @@ import osselin.patientmanagementapi.model.Patient;
 import osselin.patientmanagementapi.service.PatientManagementService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("patient")
 public class PatientManagementController {
+
 
     @Autowired
     PatientManagementService patientService;
+    
 
-    @PostMapping("/patient/add")
+
+    @PostMapping("/add")
     public ResponseEntity<Patient> addAPatientToTheDatabase(@RequestBody Patient newPatient){
 
+        if(newPatient.getLastName() == null || newPatient.getFirstName() == null || newPatient.getDateOfBirth() == null || newPatient.getGender() == null || newPatient.getId() != 0){
 
-        Patient result = patientService.addANewPatientToTheDatabase(newPatient);
-
-        if(result != null){
-
-            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+            return new ResponseEntity("You couldn't add the Patient to the Db, you need at least a last name, a first name, a date of birth and a gender to register a new Patient. Also, for integrity purposes, please do not put and ID.", HttpStatus.BAD_REQUEST);
 
         }else{
-
-            return new ResponseEntity("You couldn't add the Patient to the Db", HttpStatus.BAD_REQUEST);
+            Patient result = patientService.addANewPatientToTheDatabase(newPatient);
+            if(result != null ) {
+                return new ResponseEntity<Patient>(result, HttpStatus.OK);
+            }else{
+                return new ResponseEntity("This user already exist in the Database.", HttpStatus.BAD_REQUEST);
+            }
         }
+
 
     }
 
-    @PostMapping("/patient/update")
+    @PostMapping("/update")
     public ResponseEntity<Patient> updateAPatientInTheDatabase(@RequestParam("id") Integer patientId, @RequestBody Patient newAttributesForGivenPatient){
 
 
-        Patient result = patientService.updateAGivenPatient(patientId, newAttributesForGivenPatient);
+        if(newAttributesForGivenPatient.getId() != patientId ){
 
-        if(result != null){
+            return new ResponseEntity("Do not set a new ID in the body of the request , or set two different ID in the URL and in the Body,it can lead to database management issue. Also, don't forget to add the ID in the body of the request.", HttpStatus.BAD_REQUEST);
+        }else {
 
-            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+            Patient result = patientService.updateAGivenPatient(patientId, newAttributesForGivenPatient);
 
-        }else{
+            if (result != null) {
 
-            return new ResponseEntity("You couldn't update the Patient to the Db", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<Patient>(result, HttpStatus.OK);
+
+            } else {
+
+                return new ResponseEntity("This ID isn't related to any user. If the ID is related to the user, an other patient has already taken this name and family name.", HttpStatus.BAD_REQUEST);
+            }
         }
 
     }
 
-    @PostMapping("/patient/delete")
+    @GetMapping("/delete")
     public ResponseEntity<Boolean> deleteAPatientInTheDatabase(@RequestParam("id") Integer patientId){
 
         Boolean result = patientService.deleteAGivenPatient(patientId);
@@ -67,21 +78,38 @@ public class PatientManagementController {
 
     }
 
-    @GetMapping("/patient")
+    @GetMapping("/")
     public List<Patient> getAllThePatient(){
 
         return patientService.getAllTheList();
     }
 
-    @GetMapping("/patient/{id}")
-    public Optional<Patient> getASpecificPatient(@PathVariable("id") Integer id){
-        return patientService.getASpecificPatient(id);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Patient> getASpecificPatient(@PathVariable("id") Integer id){
+
+        try {
+            Patient result = patientService.getASpecificPatient(id).get();
+            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+
+        }catch(Exception e){
+
+            return new ResponseEntity("Could not get this user form the Database with this id." , HttpStatus.BAD_REQUEST);
+        }
+
     }
 
-    @GetMapping("/patient/{firstName}/{lastName}")
-    public Optional<Patient> getASpecificPatientBasedOnIdentity(@PathVariable("firstName") String firstName,@PathVariable("lastName") String familyName){
+    @GetMapping("/get/{firstName}/{lastName}")
+    public ResponseEntity<Patient> getASpecificPatientBasedOnIdentity(@PathVariable("firstName") String firstName,@PathVariable("lastName") String familyName){
 
-        return patientService.getASpecificPatientBasedOnIdentity(firstName, familyName);
+        try {
+            Patient result = patientService.getASpecificPatientBasedOnIdentity(firstName, familyName).get();
+            return new ResponseEntity<Patient>(result, HttpStatus.OK);
+
+        }catch(Exception e){
+
+            return new ResponseEntity("Could not get this user form the Database with this name and username." , HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 

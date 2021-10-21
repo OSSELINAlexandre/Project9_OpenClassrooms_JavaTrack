@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Spring Boot </title>
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 </head>
 <body class="bg-light">
@@ -39,13 +39,9 @@
 <div class="container mt-5">
 <div class="d-flex justify-content-between">
 
-    <a  th:href="@{/modifySpecificNote/{id}/{idPatient}(id=${theGivenNote.id},idPatient=${theGivenPatient.id})}" class="btn btn-primary">Modify the note</a>
+    <a  th:href="@{/modifySpecificNote/{id}(id=${theGivenNote.id})}" class="btn btn-primary">Modify the note</a>
     <a  th:href="@{/deleteANote/{id}(id=${theGivenNote.id})}" class="btn btn-danger" >Delete The Note</a>
 </div>
 </div>
-
-<script src="bootstrap.min.js"></script>
-<script src="bootstrap.bundle.js"></script>
-
 </body>
 </html>

@@ -24,6 +24,13 @@ public class PatientNoteService {
 
         return result;
     }
+    public List<PatientNote> getAllNotesFromPatientBasedOnSQLId(Integer id) {
+
+        List<PatientNote> result = patientNotesRepo.findBySqlId(String.valueOf(id));
+
+        return result;
+
+    }
 
     public PatientNote getSpecificNoteFromPatient(String id) {
 
@@ -63,4 +70,5 @@ public class PatientNoteService {
     public void setPatientNotesRepo(PatientNotesRepository patientNotesRepo) {
         this.patientNotesRepo = patientNotesRepo;
     }
+
 }

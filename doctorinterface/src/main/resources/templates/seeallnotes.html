@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Spring Boot </title>
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 </head>
 <body class="bg-light">
@@ -52,8 +52,8 @@
                     <tr  th:each="note : ${AllNoteFromUser}">
                         <td th:text="${note.id}"></td>
                         <td>
-                            <a  th:href="@{/seeSpecificNote/{id}/{idPatient}(id=${note.id},idPatient=${givenPatient.id})}" class="btn btn-success">See note</a>
-                            <a  th:href="@{/modifySpecificNote/{id}/{idPatient}(id=${note.id},idPatient=${givenPatient.id})}" class="btn btn-primary">Modify</a>
+                            <a  th:href="@{/seeSpecificNote/{id}(id=${note.id})}" class="btn btn-success">See note</a>
+                            <a  th:href="@{/modifySpecificNote/{id}(id=${note.id})}" class="btn btn-primary">Modify</a>
                             <a  th:href="@{/deleteANote/{id}(id=${note.id})}"class="btn btn-danger" >Delete</a>
                         </td>
                     </tr>
@@ -68,8 +68,8 @@
 
 </section>
 
-<script src="bootstrap.min.js"></script>
-<script src="bootstrap.bundle.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.bundle.js"></script>
 
 </body>
 </html>

@@ -49,7 +49,7 @@ public class PatientNotesIntegrationTests {
     @Test
     public void Test_getNote_FromExistingPatientNote_ShouldReturnTheObservation() throws Exception {
 
-        mvcResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         System.out.println(mvcResult.getResponse().getContentAsString());
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Terribly a genius") && mvcResult.getResponse().getContentAsString().contains("terrible genius"));
         String[] responses = mvcResult.getResponse().getContentAsString().split("},");
@@ -64,11 +64,11 @@ public class PatientNotesIntegrationTests {
     public void Test_getNote_FromNotExistingPatientNote_ShouldNotReturnTheObservation() throws Exception {
 
 
-        MvcResult toBeDeleted = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult toBeDeleted = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         String[] responses = toBeDeleted.getResponse().getContentAsString().split("},");
 
 
-        mvcResult = mockMvc.perform(get("/getNote?firstName=NotExistingPatientNote" )).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/getName?firstName=NotExistingPatientNote" )).andReturn();
         System.out.println( "-----" + mvcResult.getResponse().getContentAsString());
         assertTrue(mvcResult.getResponse().getContentAsString().equals(""));
 
@@ -80,11 +80,11 @@ public class PatientNotesIntegrationTests {
     @Test
     public void Test_GetAGivenNote() throws Exception {
 
-        MvcResult deletedResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult deletedResult = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         List<PatientNote> pa = patientRepo.findByLastNameAndFirstName("DaVinci" , "Leonard");
         PatientNote noteA = pa.get(0);
 
-        mvcResult = mockMvc.perform(get("/getAGivenNote?id=" + noteA.getId())).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/get?id=" + noteA.getId())).andReturn();
 
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Terribly a genius") || mvcResult.getResponse().getContentAsString().contains("terrible genius"));
 
@@ -96,12 +96,12 @@ public class PatientNotesIntegrationTests {
     @Test
     public void Test_GetAGivenNote_ShouldReturnEmptyWhenDoesNotExist() throws Exception {
 
-        MvcResult deletedResult = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult deletedResult = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
 
 
-        mvcResult = mockMvc.perform(get("/getAGivenNote?id=" + Integer.MAX_VALUE + 77)).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/get?id=" + Integer.MAX_VALUE + 77)).andReturn();
 
-        assertTrue(mvcResult.getResponse().getContentAsString().equals(""));
+        assertTrue(mvcResult.getResponse().getContentAsString().equals("Could not get the notes from this user based on this id."));
 
         String[] responses = deletedResult.getResponse().getContentAsString().split("},");
         patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
@@ -112,12 +112,12 @@ public class PatientNotesIntegrationTests {
     public void Test_SaveANewNote() throws Exception {
 
         PatientNote testPatientNoteC = new PatientNote(String.valueOf(Integer.MAX_VALUE), "Leonard", "DaVinci", "A genius that was terrible");
-        mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/saveANewNote").content(asJsonString(testPatientNoteC))
+        mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patHistory/add").content(asJsonString(testPatientNoteC))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
         assertTrue(mvcResult.getResponse().getContentAsString().contains("true"));
 
-        MvcResult resultsToBeDeleted = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult resultsToBeDeleted = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         String[] responses = resultsToBeDeleted.getResponse().getContentAsString().split("},");
         patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
         patientRepo.deleteById(getTheIdFromTheReponses(responses[1]));
@@ -131,11 +131,11 @@ public class PatientNotesIntegrationTests {
         List<PatientNote> pa = patientRepo.findByLastNameAndFirstName("DaVinci" , "Leonard");
         PatientNote noteA = pa.get(0);
 
-        mvcResult = mockMvc.perform(get("/deleteANote?id=" + noteA.getId())).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/delete?id=" + noteA.getId())).andReturn();
 
         assertTrue(mvcResult.getResponse().getContentAsString().contains("true"));
 
-        MvcResult resultsToBeDeleted = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult resultsToBeDeleted = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         String[] responses = resultsToBeDeleted.getResponse().getContentAsString().split("},");
         patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
 
@@ -146,11 +146,11 @@ public class PatientNotesIntegrationTests {
     public void Test_DeleteAGivenNote_ShouldReturnFalseIfDoesNotExist() throws Exception {
 
 
-        mvcResult = mockMvc.perform(get("/deleteANote?id=" + (-5))).andReturn();
+        mvcResult = mockMvc.perform(get("/patHistory/delete?id=" + (-5))).andReturn();
 
-        assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Could not delete a note with this id."));
 
-        MvcResult resultsToBeDeleted = mockMvc.perform(get("/getNote?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
+        MvcResult resultsToBeDeleted = mockMvc.perform(get("/patHistory/getName?firstName=" + patientNoteTestA.getFirstName() + "&lastName=" + patientNoteTestB.getLastName())).andReturn();
         String[] responses = resultsToBeDeleted.getResponse().getContentAsString().split("},");
         patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
         patientRepo.deleteById(getTheIdFromTheReponses(responses[1]));

@@ -10,7 +10,6 @@ import osselin.doctorinterface.proxy.PatientManagementProxy;
 import osselin.doctorinterface.proxy.PatientNoteProxy;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DoctorInterfaceService {
@@ -24,6 +23,8 @@ public class DoctorInterfaceService {
 
     public List<Patient> getAllTheListOfPatient() {
 
+
+
         return patientManagementProxy.getAllTheListOfPatient();
 
     }
@@ -31,6 +32,7 @@ public class DoctorInterfaceService {
     public boolean addingNewPatientToTheDb(Patient thePatient) {
 
         try {
+
             ResponseEntity result = patientManagementProxy.addThePatient(thePatient);
 
         }catch(FeignException FE){
@@ -41,9 +43,20 @@ public class DoctorInterfaceService {
         return true;
     }
 
-    public Optional<Patient> getSpecificPatientFromDb(int theId) {
+    public Patient getSpecificPatientFromDb(int theId) {
 
-        return patientManagementProxy.getASpecificPatient(theId);
+        try {
+
+
+            ResponseEntity<Patient> result = patientManagementProxy.getASpecificPatient(theId);
+            return result.getBody();
+
+        }catch (FeignException FE){
+
+            return null;
+
+        }
+
     }
 
     public boolean deleteSpecificPatient(int theId) {
@@ -74,30 +87,78 @@ public class DoctorInterfaceService {
         return true;
     }
 
-    public List<PatientNote> getNotesFromUserNOSQL(String firstName, String lastName) {
+    public List<PatientNote> getNotesFromUserNOSQL(Integer id) {
 
-        return patientNoteProxy.getAllNotesForSpecificUser(firstName, lastName);
+
+        try{
+
+            ResponseEntity<List<PatientNote>> result = patientNoteProxy.getAllNotesForSpecificUserSQLID(id);
+            return result.getBody();
+
+        }catch(FeignException FE){
+
+            return null;
+        }
+
 
     }
 
     public PatientNote getSpecificNoteFromPatient(String id) {
 
-        return patientNoteProxy.getSpecificNoteFromUser(id);
+        try{
+
+            ResponseEntity<PatientNote> result = patientNoteProxy.getSpecificNoteFromUser(id);
+            return result.getBody();
+
+        }catch(FeignException FE){
+
+            return null;
+        }
+
     }
 
     public Boolean addingNewNoteToPatientInDb(PatientNote patientNote) {
 
-        return patientNoteProxy.addOrSaveNoteToTheDb(patientNote);
+        try{
+
+            ResponseEntity<Boolean> result = patientNoteProxy.addOrSaveNoteToTheDb(patientNote);
+            return result.getBody();
+
+        }catch(FeignException FE){
+
+            return false;
+        }
+
+
 
     }
 
     public Boolean modifyingAnExistingNoteIntoTheDb(PatientNote patientNote) {
 
-        return patientNoteProxy.addOrSaveNoteToTheDb(patientNote);
+        try{
+
+            ResponseEntity<Boolean> result = patientNoteProxy.addOrSaveNoteToTheDb(patientNote);
+            return result.getBody();
+
+        }catch(FeignException FE){
+
+            return false;
+        }
+
     }
 
     public Boolean deleteSpecificNote(String id) {
 
-        return patientNoteProxy.deleteAGivenNote(id);
+
+        try{
+
+            ResponseEntity<Boolean> result = patientNoteProxy.deleteAGivenNote(id);
+            return result.getBody();
+
+        }catch(FeignException FE){
+
+            return false;
+        }
+
     }
 }

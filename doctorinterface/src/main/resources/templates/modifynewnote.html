@@ -21,7 +21,7 @@
         </div>
     </div>
 </nav>
-<form th:action="@{/modifyAGivenNote/{PnId}/{id}/{firstName}/{lastName}(PnId=${theNoteToModify.id}, id=${patientId},firstName=${patientFirstName},lastName=${patientLastName})}" method="POST" th:object="${theNoteToModify}" >
+<form th:action="@{/modifyAGivenNote/{PnId}(PnId=${theNoteToModify.id})}" method="POST" th:object="${theNoteToModify}" >
 
     <section class="writingFrame">
         <div class="container text-center bg-white mt-3 shadow-sm writingFrame">
@@ -46,8 +46,8 @@
     </div>
 </form>
 
-<script src="bootstrap.min.js"></script>
-<script src="bootstrap.bundle.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.bundle.js"></script>
 
 </body>
 </html>

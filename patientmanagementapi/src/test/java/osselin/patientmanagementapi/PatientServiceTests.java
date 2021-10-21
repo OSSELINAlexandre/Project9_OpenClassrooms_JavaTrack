@@ -18,6 +18,7 @@ import osselin.patientmanagementapi.service.PatientManagementService;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
 class PatientServiceTests {
@@ -79,7 +80,8 @@ class PatientServiceTests {
 
 		String theResponse = mvcResult.getResponse().getContentAsString();
 
-		assertTrue(theResponse.contains("You couldn't add the Patient to the Db"));
+
+		assertTrue(theResponse.contains("This user already exist in the Database."));
 
 		patientRepo.deleteById(getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()));
 
@@ -92,12 +94,13 @@ class PatientServiceTests {
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 		testingPatient.setFirstName("John");
+		testingPatient.setId(getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()));
 		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/update?id=" + getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString())).content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 
 		String theResponse = mvcResult.getResponse().getContentAsString();
-
+		System.out.println("-------" + theResponse);
 
 		assertTrue(theResponse.contains("John") && theResponse.contains("OSSELIN") && theResponse.contains("M"));
 
@@ -109,11 +112,13 @@ class PatientServiceTests {
 	@Test
 	void Test_updatingANoneExistingPatientShouldReturnFalse() throws Exception {
 
+		testingPatient.setId(Integer.MAX_VALUE);
 		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/update?id=" + Integer.MAX_VALUE).content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("You couldn't update the Patient to the Db"));
+
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("This ID isn't related to any user. If the ID is related to the user, an other patient has already taken this name and family name."));
 
 	}
 
@@ -123,8 +128,7 @@ class PatientServiceTests {
 		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
-		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete?id=" + getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString())).content(asJsonString(testingPatient))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
+		mvcResult = mockMvc.perform(get("/patient/delete?id=" + getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()))).andReturn();
 
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("true"));
 
@@ -134,8 +138,7 @@ class PatientServiceTests {
 	@Test
 	void Test_deletingAnNoneExistingPatientShouldReturnFalse() throws Exception {
 
-		mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/patient/delete?id=" + Integer.MAX_VALUE).content(asJsonString(testingPatient))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
+		mvcResult = mockMvc.perform(get("/patient/delete?id=" + Integer.MAX_VALUE)).andReturn();
 
 
 		Boolean result = patientService.deleteAGivenPatient(Integer.MAX_VALUE);
@@ -156,6 +159,10 @@ class PatientServiceTests {
 		String[] toDelete = theResponse.split(",");
 		System.out.println(toDelete.toString());
 		String[] resultWanted = toDelete[0].split(":");
+		for(String s : resultWanted){
+
+			System.out.println(" -------- " + s);
+		}
 		String id = resultWanted[1];
 		return Integer.parseInt(id);
 	}

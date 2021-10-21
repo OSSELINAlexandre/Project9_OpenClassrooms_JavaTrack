@@ -2,7 +2,6 @@ package osselin.diagnosisapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,27 +50,27 @@ public class DiagnosisApiControllerTests {
 
     private Patient testingPatient;
 
-    @BeforeEach
-    public void init(){
-
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        Date dating26Yo = new Date(815616000000L);
-        patientNoteTestA = new PatientNote(String.valueOf(Integer.MAX_VALUE), "Leonard", "DaVinci", "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
-        testingPatient = new Patient("Leonard", "DaVinci", dating26Yo, 'M', "32 rue du Moulin", "0160693539");
-        patientProxy.addThePatient(testingPatient);
-        patientNoteProxy.addOrSaveNoteToTheDb(patientNoteTestA);
-    }
-
     @Test
     public void Test_assesBasedOnId() throws Exception {
 
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        Date dating26Yo = new Date(815616000000L);
+
+        testingPatient = new Patient("Alexandre", "DaVinci", dating26Yo, 'M', "32 rue du Moulin", "0160693539");
+        patientProxy.addThePatient(testingPatient);
+        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Alexandre", "DaVinci").getBody();
+
+        patientNoteTestA = new PatientNote(String.valueOf(toBeDeleted.getId()), "Alexandre", "DaVinci", "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
+        patientNoteProxy.addOrSaveNoteToTheDb(patientNoteTestA);
+
+
         PatIdDto idFromUser = new PatIdDto();
-        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Leonard", "DaVinci").get();
         idFromUser.setPatId(toBeDeleted.getId());
 
         mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/assess/id").content(asJsonString(idFromUser))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
+        System.out.println(mvcResult.getResponse().getContentAsString());
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Early Onset"));
 
     }
@@ -79,11 +78,19 @@ public class DiagnosisApiControllerTests {
     @Test
     public void Test_assesBasedOnFamilyName() throws Exception {
 
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        Date dating26Yo = new Date(815616000000L);
+        patientNoteTestA = new PatientNote(String.valueOf(Integer.MAX_VALUE), "Alexandre", "DaVinci", "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
+        testingPatient = new Patient("Alexandre", "DaVinci", dating26Yo, 'M', "32 rue du Moulin", "0160693539");
+        patientProxy.addThePatient(testingPatient);
+        patientNoteProxy.addOrSaveNoteToTheDb(patientNoteTestA);
+
+
+
         PatFamilyDto theId = new PatFamilyDto();
         theId.setFamilyName("DaVinci");
-        theId.setFirstName("Leonard");
+        theId.setFirstName("Alexandre");
 
-        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Leonard", "DaVinci").get();
 
         mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/assess/familyName").content(asJsonString(theId))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -95,9 +102,9 @@ public class DiagnosisApiControllerTests {
     @AfterEach
     public void delete() throws Exception {
 
-        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Leonard", "DaVinci").get();
+        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Alexandre", "DaVinci").getBody();
         patientProxy.deleteAPatient(toBeDeleted.getId());
-        List<PatientNote> results = patientNoteProxy.getAllNotesForSpecificUser("Leonard","DaVinci");
+        List<PatientNote> results = patientNoteProxy.getAllNotesForSpecificUser("Alexandre","DaVinci").getBody();
         patientNoteProxy.deleteAGivenNote(results.get(0).getId());
 
     }

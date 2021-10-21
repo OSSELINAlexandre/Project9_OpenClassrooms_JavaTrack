@@ -29,13 +29,13 @@ public class DiagnosisService {
 
         try {
 
-            Patient thePatient = patientProxy.getASpecificPatient(theId).get();
-            List<PatientNote> allNotes = patientNoteProxy.getAllNotesForSpecificUser(thePatient.getFirstName(), thePatient.getLastName());
+            Patient thePatient = patientProxy.getASpecificPatient(theId).getBody();
+            List<PatientNote> allNotes = patientNoteProxy.getAllNotesForUserBasedOnSqlID(theId).getBody();
             return calculationAlgortihm(thePatient, allNotes);
 
         }catch (FeignException fe){
 
-            return "Could not find the given patient with this ID ! :)";
+            return "Could not find the given patient with this ID ! ";
 
         }
 
@@ -45,13 +45,13 @@ public class DiagnosisService {
 
         try {
 
-            Patient thePatient = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName(firstName, familyName).get();
-            List<PatientNote> allNotes = patientNoteProxy.getAllNotesForSpecificUser(thePatient.getFirstName(), thePatient.getLastName());
+            Patient thePatient = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName(firstName, familyName).getBody();
+            List<PatientNote> allNotes = patientNoteProxy.getAllNotesForUserBasedOnSqlID(thePatient.getId()).getBody();
             return calculationAlgortihm(thePatient, allNotes);
 
         }catch (FeignException fe){
 
-            return "Could not find the given patient with this ID ! :)";
+            return "Could not find the given patient with this name and family name. If the patient exist, then no notes have been written yet.";
 
         }
 
@@ -122,13 +122,11 @@ public class DiagnosisService {
         *
         * Check the date it isn't working properly, I need to change the date in mysql*/
         LocalDate pastDate = LocalDate.of(Integer.parseInt(resultDates[0]), Integer.parseInt(resultDates[1]), Integer.parseInt(resultDates[2]));
-        System.out.println(dateOfBirth.toString());
+
 
         LocalDate nowDate = LocalDate.now();
         Period period = Period.between(pastDate, nowDate);
-        System.out.println("Hey, waht about this method ,  " + period.toString());
         int result = (int) ((period.toTotalMonths()) / 12);
-        System.out.println("HEYYYY HOW OLD AM I ! " + result);
         return result;
     }
 

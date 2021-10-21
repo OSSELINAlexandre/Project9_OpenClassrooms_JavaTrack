@@ -2,6 +2,7 @@ package osselin.doctorinterface.proxy;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,16 +15,19 @@ import java.util.List;
 public interface PatientNoteProxy {
 
 
-    @GetMapping("/getNote")
-    public List<PatientNote> getAllNotesForSpecificUser(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName);
+    @GetMapping("/patHistory/getName")
+    public ResponseEntity<List<PatientNote>> getAllNotesForSpecificUserBasedOnName(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName);
 
-    @GetMapping("/getAGivenNote")
-    PatientNote getSpecificNoteFromUser(@RequestParam("id") String id);
+    @GetMapping("/patHistory/getNotes")
+    public ResponseEntity<List<PatientNote>> getAllNotesForSpecificUserSQLID(@RequestParam("id") Integer sqlId);
 
-    @PostMapping("/saveANewNote")
-    Boolean addOrSaveNoteToTheDb(@RequestBody PatientNote patientNote);
+    @GetMapping("/patHistory/get")
+    ResponseEntity<PatientNote> getSpecificNoteFromUser(@RequestParam("id") String id);
+
+    @PostMapping("/patHistory/add")
+    ResponseEntity<Boolean> addOrSaveNoteToTheDb(@RequestBody PatientNote patientNote);
 
 
-    @GetMapping("/deleteANote")
-    Boolean deleteAGivenNote(@RequestParam("id") String id);
+    @GetMapping("/patHistory/delete")
+    ResponseEntity<Boolean> deleteAGivenNote(@RequestParam("id") String id);
 }

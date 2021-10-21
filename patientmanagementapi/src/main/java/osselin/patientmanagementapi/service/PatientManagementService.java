@@ -20,7 +20,6 @@ public class PatientManagementService {
         if(patientRepo.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()).isEmpty() ){
 
 
-            System.out.println("Is this guy been printed ??? I don't know man ");
             Patient result = patientRepo.save(newPatient);
             return result;
 
@@ -32,9 +31,22 @@ public class PatientManagementService {
 
     public Patient updateAGivenPatient(Integer patientId, Patient newAttributesForGivenPatient) {
 
+
         if(patientRepo.findById(patientId).isPresent()){
 
-            newAttributesForGivenPatient.setId(patientId);
+            Patient intermediaryResult = patientRepo.findById(patientId).get();
+
+            try {
+                if (patientRepo.findByFirstNameAndLastName(newAttributesForGivenPatient.getFirstName(), newAttributesForGivenPatient.getLastName()).get().getId() != intermediaryResult.getId()) {
+
+                    return null;
+                }
+
+            }catch(Exception e){
+
+
+            }
+
             Patient result = patientRepo.save(newAttributesForGivenPatient);
 
 
@@ -77,7 +89,6 @@ public class PatientManagementService {
     public Optional<Patient> getASpecificPatientBasedOnIdentity(String firstName, String familyName) {
 
 
-        System.out.println(patientRepo.findByFirstNameAndLastName(firstName, familyName).get().getDateOfBirth().getTime());
         return patientRepo.findByFirstNameAndLastName(firstName, familyName);
     }
 }
