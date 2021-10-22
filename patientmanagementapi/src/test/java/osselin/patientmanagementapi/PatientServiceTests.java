@@ -20,6 +20,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+
+/**
+ * PatientServiceTests regroups all the tests for our API.
+ *
+ * IF YOU WANT TO RUN THE TESTS, go in the application.properties, and change 'host.docker.internal' with 'localhost'.
+ *
+ */
 @SpringBootTest
 class PatientServiceTests {
 
@@ -100,7 +107,6 @@ class PatientServiceTests {
 
 
 		String theResponse = mvcResult.getResponse().getContentAsString();
-		System.out.println("-------" + theResponse);
 
 		assertTrue(theResponse.contains("John") && theResponse.contains("OSSELIN") && theResponse.contains("M"));
 
@@ -159,10 +165,6 @@ class PatientServiceTests {
 		String[] toDelete = theResponse.split(",");
 		System.out.println(toDelete.toString());
 		String[] resultWanted = toDelete[0].split(":");
-		for(String s : resultWanted){
-
-			System.out.println(" -------- " + s);
-		}
 		String id = resultWanted[1];
 		return Integer.parseInt(id);
 	}

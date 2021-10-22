@@ -11,6 +11,13 @@ import osselin.doctorinterface.model.PatientNote;
 
 import java.util.List;
 
+/**
+ * <p>PatientNoteProxy is the Feign proxy that communicates with the Api in charge of the management of the notes.</p>
+ *
+ * <p>It centralizes all endpoints existing the in API.</p>
+ *
+ *
+ */
 @FeignClient(name ="patientnotesapi", url = "localhost:8082")
 public interface PatientNoteProxy {
 

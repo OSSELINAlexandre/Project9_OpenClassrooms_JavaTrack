@@ -7,6 +7,13 @@ import osselin.doctorinterface.model.Patient;
 
 import java.util.List;
 
+/**
+ * <p>PatientManagementProxy is the Feign proxy that communicates with the Api in charge of the management of the patients.</p>
+ *
+ * <p>It centralizes all endpoints existing the in API.</p>
+ *
+ *
+ */
 @FeignClient(name ="patientmanagementapi", url = "localhost:8081")
 public interface PatientManagementProxy {
 

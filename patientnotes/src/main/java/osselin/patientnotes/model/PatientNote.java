@@ -2,6 +2,12 @@ package osselin.patientnotes.model;
 
 import org.springframework.data.annotation.Id;
 
+/**
+ * <b>PatientNote is the class representing a medical note on a patient.</b>
+ *
+ * @author Alexandre Osselin
+ * @version 1.0
+ */
 public class PatientNote {
 
     @Id

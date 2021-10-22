@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DiagnosisApiControllerTests {
 
     /*
-    * This tests are integrations tests, they need both databases to be lauched in order to function properly
+    * This tests are integrations tests, they need both databases to be launched in order to function properly
     *
     * */
 

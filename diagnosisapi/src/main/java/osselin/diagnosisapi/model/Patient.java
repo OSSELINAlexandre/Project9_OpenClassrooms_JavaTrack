@@ -1,7 +1,11 @@
 package osselin.diagnosisapi.model;
 
 import java.sql.Date;
-
+/**
+ * <b>Patient is the class representing a medical patient.</b>
+ *
+ *
+ */
 public class Patient {
 
     private int id;

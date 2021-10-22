@@ -3,6 +3,20 @@ package osselin.patientmanagementapi.model;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * <b>Patient is the class representing a medical patient.</b>
+ *
+ * <p>
+ *     The given attributes are required by the client of our project.
+ * </p>
+
+ * <p>
+ * The required attributes in database are the id, the first name, the last name, the birthdate and the gender.
+ * </p>
+ *
+ * <p>The address and phone number can be null in the database (it was required as such by the client).</p>
+ *
+ */
 @Entity
 @Table(name="patientmanagement")
 public class Patient {

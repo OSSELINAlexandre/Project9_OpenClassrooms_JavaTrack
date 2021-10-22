@@ -1,6 +1,9 @@
 package osselin.doctorinterface.model;
 
-
+/**
+ * <b>PatientNote is the class representing a medical note on a patient.</b>
+ *
+ */
 public class PatientNote {
 
     public String id;

@@ -3,25 +3,20 @@ package osselin.doctorinterface.model;
 
 import java.sql.Date;
 
-
+/**
+ * <b>Patient is the class representing a medical patient.</b>
+ *
+ */
 public class Patient {
 
     private int id;
 
-
     private String firstName;
-
 
     private String lastName;
 
-    //@Pattern(regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
-
-
-
     private Date dateOfBirth;
 
-/*    @Pattern(regexp = "[MF]")
-    @NotBlank(message ="You need to add a gender, please M or F")*/
     private Character gender;
 
     private String address;
