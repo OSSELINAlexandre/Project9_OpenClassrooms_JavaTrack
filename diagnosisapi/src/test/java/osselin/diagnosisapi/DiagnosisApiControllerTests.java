@@ -80,22 +80,26 @@ public class DiagnosisApiControllerTests {
 
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         Date dating26Yo = new Date(815616000000L);
-        patientNoteTestA = new PatientNote(String.valueOf(Integer.MAX_VALUE), "Alexandre", "DaVinci", "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
+
         testingPatient = new Patient("Alexandre", "DaVinci", dating26Yo, 'M', "32 rue du Moulin", "0160693539");
         patientProxy.addThePatient(testingPatient);
+        Patient toBeDeleted = patientProxy.getASpecificPatientBasedOnFamillyAndFirstName("Alexandre", "DaVinci").getBody();
+
+        patientNoteTestA = new PatientNote(String.valueOf(toBeDeleted.getId()), "Alexandre", "DaVinci", "Microalbumine, Taille, Cholestérol, Anticorps, Réaction, Rechute, Vertige, Fumeur, Anormal");
         patientNoteProxy.addOrSaveNoteToTheDb(patientNoteTestA);
 
 
+        PatFamilyDto toBeSend = new PatFamilyDto();
 
-        PatFamilyDto theId = new PatFamilyDto();
-        theId.setFamilyName("DaVinci");
-        theId.setFirstName("Alexandre");
+        toBeSend.setFirstName("Alexandre");
+        toBeSend.setFamilyName("DaVinci");
 
-
-        mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/assess/familyName").content(asJsonString(theId))
+        mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/assess/familyName").content(asJsonString(toBeSend))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
 
+        System.out.println(mvcResult.getResponse().getContentAsString());
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Early Onset"));
+
 
     }
 

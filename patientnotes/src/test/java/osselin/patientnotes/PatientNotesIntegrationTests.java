@@ -53,9 +53,21 @@ public class PatientNotesIntegrationTests {
         System.out.println(mvcResult.getResponse().getContentAsString());
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Terribly a genius") && mvcResult.getResponse().getContentAsString().contains("terrible genius"));
         String[] responses = mvcResult.getResponse().getContentAsString().split("},");
-        for(String s : responses){
-            System.out.println("===============" + s);
-        }
+
+        patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
+        patientRepo.deleteById(getTheIdFromTheReponses(responses[1]));
+    }
+
+    @Test
+    public void Test_getAllNotesBasedOnSqlID_FromExistingPatientNote_ShouldReturnTheObservation() throws Exception {
+
+
+
+        mvcResult = mockMvc.perform(get("/patHistory/getNotes?id=" + Integer.MAX_VALUE )).andReturn();
+        System.out.println(mvcResult.getResponse().getContentAsString());
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Terribly a genius") && mvcResult.getResponse().getContentAsString().contains("terrible genius"));
+        String[] responses = mvcResult.getResponse().getContentAsString().split("},");
+
         patientRepo.deleteById(getTheIdFromTheReponses(responses[0]));
         patientRepo.deleteById(getTheIdFromTheReponses(responses[1]));
     }

@@ -152,6 +152,50 @@ class PatientServiceTests {
 
 	}
 
+	@Test
+	void Test_getASpecificPatientBasedOnIdentity_ShouldReturnTrueIfExistsInTheDataBase() throws Exception {
+
+		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		mvcResult = mockMvc.perform(get("/patient/get/" + testingPatient.getFirstName() + "/" +testingPatient.getLastName())).andReturn();
+
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(testingPatient.getFirstName()));
+
+		patientRepo.deleteById(getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()));
+
+
+	}
+
+	@Test
+	void Test_getASpecificPatient_ShouldReturnTrueIfExistsInTheDataBase() throws Exception {
+
+		MvcResult toDeleteAnswer = mockMvc.perform(MockMvcRequestBuilders.post("/patient/add").content(asJsonString(testingPatient))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		mvcResult = mockMvc.perform(get("/patient/get/" + getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()))).andReturn();
+
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(testingPatient.getFirstName()));
+
+		patientRepo.deleteById(getTheIdFromTheReponses(toDeleteAnswer.getResponse().getContentAsString()));
+
+
+	}
+
+	@Test
+	void Test_getASpecificPatient_ShouldReturnFalseIfExistsInTheDataBase() throws Exception {
+
+
+
+		mvcResult = mockMvc.perform(get("/patient/get/" + Integer.MAX_VALUE)).andReturn();
+
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("Could not get this user form the Database with this id."));
+
+
+
+
+	}
+
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);

@@ -1,7 +1,7 @@
 package osselin.doctorinterface.model;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * <b>Patient is the class representing a medical patient.</b>

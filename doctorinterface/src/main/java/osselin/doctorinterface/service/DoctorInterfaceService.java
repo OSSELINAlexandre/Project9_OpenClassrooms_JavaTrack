@@ -71,7 +71,7 @@ public class DoctorInterfaceService {
      *
      * <p>If no patient exist for this id, the method returns null.</p>
      *
-     * @param theId
+     * @param theId (the id of the patient that the doctor wants to retrieve from the database)
      * @return Patient
      */
     public Patient getSpecificPatientFromDb(int theId) {
@@ -95,7 +95,7 @@ public class DoctorInterfaceService {
      * <p>deleteSpecificPatient requires an id as a parameter, call the Patient Management proxy, delete the related patient, and returns true. </p>
      *
      * <p>It no patient is found for this given id, the methods return false.</p>
-     * @param theId
+     * @param theId (the id of the patient that the doctors wants to delete from the database)
      * @return boolean
      */
     public boolean deleteSpecificPatient(int theId) {
@@ -118,8 +118,8 @@ public class DoctorInterfaceService {
      * <p>It returns false otherwise. </p>
      *
      *
-     * @param id
-     * @param theNewPatientRecords
+     * @param id (the id of the patient the doctor wants to update)
+     * @param theNewPatientRecords (the new attributes the doctor wants to save about the patient)
      * @return Boolean
      */
     public Boolean updatingAPatientToTheDatabase(Integer id, Patient theNewPatientRecords) {
@@ -143,7 +143,7 @@ public class DoctorInterfaceService {
      *
      * <p>It returns null </p>
      *
-     * @param id
+     * @param id (the id of the patient from whom the doctor wants to retrieve all the notes)
      * @return List<PatientNote>
      */
     public List<PatientNote> getNotesFromUserNOSQL(Integer id) {
@@ -167,7 +167,7 @@ public class DoctorInterfaceService {
      *
      * <p>It returns null if no patient note is known with this id.</p>
      *
-     * @param id
+     * @param id (the id of the note the doctor wants to get)
      * @return PatientNote
      */
     public PatientNote getSpecificNoteFromPatient(String id) {
@@ -189,7 +189,7 @@ public class DoctorInterfaceService {
      *
      * <p>It returns false if the operation couldn't be archive.</p>
      *
-     * @param patientNote
+     * @param patientNote (the note the doctor wants to save)
      * @return Boolean
      */
     public Boolean addingNewNoteToPatientInDb(PatientNote patientNote) {
@@ -213,7 +213,7 @@ public class DoctorInterfaceService {
      *
      * <p>It returns false if the operation couldn't be archive.</p>
      *
-     * @param patientNote
+     * @param patientNote (the note the doctor wants to update)
      * @return Boolean
      */
     public Boolean modifyingAnExistingNoteIntoTheDb(PatientNote patientNote) {
@@ -235,7 +235,7 @@ public class DoctorInterfaceService {
      *
      * <p>It returns false if the operation couldn't be archive.</p>
      *
-     * @param patientNote
+     * @param id (the id of the note that the doctor wants to delete)
      * @return Boolean
      */
     public Boolean deleteSpecificNote(String id) {

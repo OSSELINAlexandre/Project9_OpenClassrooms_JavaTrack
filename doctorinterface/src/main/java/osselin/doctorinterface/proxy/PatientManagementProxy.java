@@ -32,4 +32,6 @@ public interface PatientManagementProxy {
     @GetMapping("/patient/get/{id}")
     ResponseEntity<Patient> getASpecificPatient(@PathVariable("id") int theId);
 
+    @GetMapping("/patient/get/{firstName}/{lastName}")
+    ResponseEntity<Patient> getASpecificPatientBasedOnIdentity(@PathVariable("firstName") String firstName,@PathVariable("lastName") String familyName);
 }
