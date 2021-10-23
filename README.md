@@ -1,6 +1,6 @@
 # Mediscreen - Project 9 OpenClassrooms 
 
-Mediscreen is a web applucation for doctors. The purpose of this app is to management patient, medical notes, and to provides a diagnostic on patient based on the notes. 
+Mediscreen is a web application for doctors. The purpose of this app is to management patient, medical notes, and to provides a diagnostic on patient based on the notes. 
 
 Their is four main components for this application:
 
