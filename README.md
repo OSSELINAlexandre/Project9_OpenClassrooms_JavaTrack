@@ -85,6 +85,8 @@ patientmanagement : http://localhost:8081
 
 patientnotesapi : http://localhost:8082
 
+To check diagnostic, use http://localhost:8083
+
 ## Some tips
 
 If you run all these applications by the .jar or by your IDE, be carefull to change the 'host.internal.docker' in 'localhost' in doctorinterface and in the URL of the local database in both application.properties of patientmanagementapi and patientnotes. 
