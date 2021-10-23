@@ -69,7 +69,7 @@ followed by :
 docker run -p 8080:8080 diagnosisapi
 ```
 
-Once all the Docker image are up and running :
+Once all the Docker images are up and running :
 
 ```bash
 java -jar build/libs/patientnotes-0.0.1-SNAPSHOT.jar
