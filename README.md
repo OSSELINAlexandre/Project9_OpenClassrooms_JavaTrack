@@ -1,8 +1,7 @@
 # Mediscreen - Project 9 OpenClassrooms 
+Mediscreen is a web application for doctors. The purpose of this app is to manage patient, medical notes, and to provides a diagnostic on patient based on their related notes. 
 
-Mediscreen is a web application for doctors. The purpose of this app is to management patient, medical notes, and to provides a diagnostic on patient based on the notes. 
-
-Their is four main components for this application:
+There are four main components for this application:
 
 * patientmanagementapi (sprint 1)
 * patientnotes (sprint 2)
@@ -11,8 +10,8 @@ Their is four main components for this application:
 
 Patientmanagementapi is in charge of the patient management. It provides the capabilities to Cread, Read, Update or Delete patient from your local SQL database.
 PatientNotes is in charge of the doctors notes. It provides the capabilities to Cread, Read, Update or Delete patient note from your local NoSQL database.
-Diagnosisapi is in charge of providing a diagnostic for patient based on the content of the notes related to them. 
-Doctorinterface is the web interface coordinating all endpoints in order to provide a visualisation of this management.
+Diagnosisapi is in charge of providing a diagnostic for the patient based on the content of the notes related to them. 
+Doctorinterface is the web interface coordinating all endpoints in order to provide a visualisation of all thse services.
 
 
 ## Prerequisite
@@ -31,7 +30,7 @@ Doctorinterface is the web interface coordinating all endpoints in order to prov
 First, you need to build the Docker images of each microservice.
 There is three of them (patientmanagementapi, patientnotes, diagnosisapi).
 
-Go in each repository, lauch the following command for each coreponding repository (the names are important here, the DockerCompose is set for specific names).
+Go in each repository, launch the following command for each corresponding repository (the names are important here, the DockerCompose is set for specific names).
 
 ```bash
 docker build -t patientmanagementapi .
@@ -86,11 +85,15 @@ patientmanagement : http://localhost:8081
 
 patientnotesapi : http://localhost:8082
 
+## Some tips
 
-## Potential improvments
+If you run all these applications by the .jar or by your IDE, be carefull to change the 'host.internal.docker' in 'localhost' in doctorinterface and in the URL of the local database in both application.properties of patientmanagementapi and patientnotes. 
 
-This project was segmented in three sprints with client requeststo develop. 
-The three sprints are fullly adress in this current exemple, however we can see imporvments : 
+
+## Potential improvements
+
+This project was segmented in three sprints with client requests to develop. 
+The three sprints are fullly adressed in this current exemple, however we can see imporvements : 
 
 A => The front end design part wasn't part of the project, therefore we develop a minimal interface with no further thoughts on UI or UX.
 B => The notes could be improved to really reflect the relationship between a doctor and its patient (by adding a note subject, a motive of visit..).
