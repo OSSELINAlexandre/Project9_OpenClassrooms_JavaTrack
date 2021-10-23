@@ -95,6 +95,6 @@ If you run all these applications by the .jar or by your IDE, be carefull to cha
 This project was segmented in three sprints with client requests to develop. 
 The three sprints are fullly adressed in this current exemple, however we can see imporvements : 
 
-A => The front end design part wasn't part of the project, therefore we develop a minimal interface with no further thoughts on UI or UX.
-B => The notes could be improved to really reflect the relationship between a doctor and its patient (by adding a note subject, a motive of visit..).
-C => DiagnosisApi could be improved and integrated into the interface.
+* The front end design part wasn't part of the project, therefore we develop a minimal interface with no further thoughts on UI or UX.
+* he notes could be improved to really reflect the relationship between a doctor and its patient (by adding a note subject, a motive of visit..).
+* DiagnosisApi could be improved and integrated into the interface.
